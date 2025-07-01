@@ -1,7 +1,9 @@
 Ce dépôt contient l'ensemble des fichiers liés au projet de télétravail sécurisé pour la PME fictive TechFlex. 
 --
 
-# Projet TechFlex Préambule
+
+
+# Projet TechFlex
 TechFlex, une entreprise technologique, souhaite mettre en place une solution de télétravail sécurisée pour ses employés dispersés à travers le monde.
 
 # Objectifs
