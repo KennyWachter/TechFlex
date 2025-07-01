@@ -7,11 +7,12 @@ TechFlex, une entreprise technologique, souhaite mettre en place une solution de
 - Protéger les données et les communications des employés.
 
 # Livrables
-Documentation sur les scripts d’automatisation
-Plan de conformité et de sécurité
-Rapports de surveillance et d’alerting
-Infrastructure fonctionnelle (VMs)
-Documentation d’installation et d’utilisation
-Analyse des risques
-Justification des choix techniques
-Support de présentation pour la soutenance
+- Documentation sur les scripts d’automatisation
+- Arborescence Git
+- Plan de conformité et de sécurité
+- Rapports de surveillance et d’alerting
+- Infrastructure fonctionnelle (VMs)
+- Documentation d’installation et d’utilisation
+- Analyse des risques
+- Justification des choix techniques
+- Support de présentation pour la soutenance 
