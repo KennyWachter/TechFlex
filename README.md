@@ -21,3 +21,10 @@ TechFlex, une entreprise technologique, souhaite mettre en place une solution de
 - Analyse des risques
 - Justification des choix techniques
 - Support de présentation pour la soutenance 
+
+## Arborescence
+- `01_cadrage/` – Cahier des charges, analyse des risques, choix techniques
+- `02_installation/` – Docs d’installation, scripts d'automatisation
+- `03_surveillance/` – Rapports de surveillance, alertes
+- `04_tests/` – Scénarios de tests, checklist
+- `05_presentation/` – Slides et plan de démo
