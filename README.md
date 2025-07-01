@@ -1,5 +1,5 @@
-######*Ce dépôt contient l'ensemble des fichiers liés au projet de télétravail sécurisé pour la PME fictive TechFlex.*
----
+*Ce dépôt contient l'ensemble des fichiers liés au projet de télétravail sécurisé pour la PME fictive TechFlex.*
+
 
 
 
