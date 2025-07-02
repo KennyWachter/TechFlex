@@ -23,8 +23,8 @@ TechFlex, une entreprise technologique, souhaite mettre en place une solution de
 - Support de présentation pour la soutenance 
 
 ## Arborescence
-- `01_cadrage/` – Cahier des charges, analyse des risques, choix techniques
-- `02_installation/` – Docs d’installation, scripts d'automatisation
-- `03_surveillance/` – Rapports de surveillance, alertes
+- `01_cadrage/` – Cahier des charges, analyse des risques, choix techniques, plan de conformité
+- `02_installation/` – Docs d’installation et d'utilisation, scripts d'automatisation
+- `03_surveillance/` – Rapports de surveillance et alerting
 - `04_tests/` – Scénarios de tests, checklist
 - `05_presentation/` – Slides et plan de démo
