@@ -1,97 +1,97 @@
 # Cahier des charges fonctionnel  
 **Projet** : Mise en place d’un environnement de télétravail sécurisé hybride pour TechFlex  
-**Auteurs** : Kenny Wachter; Othman Oumri  
+**Auteurs** : Kenny Wachter; Othman Oumri 
 **Date** : Juillet 2025  
 
 ---
 
-## 1. Présentation du client
+## 1. Présentation du client fictif
 
 **Nom de l’entreprise** : TechFlex  
 **Secteur** : Conseil informatique  
 **Taille** : PME d’environ 20 salariés  
 **Contexte** :  
-TechFlex souhaite moderniser son environnement de travail et permettre à ses collaborateurs d’accéder à leurs outils et fichiers à la fois en local et à distance, de manière sécurisée.
+TechFlex souhaite moderniser son environnement de travail en proposant un accès sécurisé à ses outils et fichiers, aussi bien sur site qu’en télétravail. Le projet vise à combiner un **stockage local via NAS**, un accès distant via **VPN WireGuard**, et une **solution cloud professionnelle basée sur Microsoft 365**, le tout piloté via **Entra ID**.
 
 ---
 
-## 2. Objectifs du projet 
-####*Pour démonstration au client avant de le mettre en production*
-- Créer une infrastructure réseau virtualisée avec Proxmox VE.
-- Mettre en place un NAS local (TrueNAS SCALE) accessible :
-  - en local via le réseau LAN
-  - à distance via VPN (WireGuard)
-- Synchroniser les fichiers entre le NAS et Google Workspace (Drive).
-- Simuler une DMZ avec des services accessibles de l’extérieur (web/mail).
-- Tester les accès et la synchronisation depuis deux postes : interne et externe.
-- Documenter toute l’infrastructure pour futur déploiement physique.
+## 2. Objectifs du projet
+
+- Concevoir une **infrastructure hybride sécurisée** : locale + cloud Microsoft 365.
+- Permettre aux utilisateurs d’accéder à leurs fichiers et outils de travail :
+  - En local (réseau interne NAS TrueNAS)
+  - À distance (via VPN WireGuard)
+  - Depuis le cloud (OneDrive / SharePoint)
+- Centraliser l’authentification avec **Entra ID** (anciennement Azure AD).
+- Simuler l’architecture en environnement virtualisé (Proxmox) avant tout déploiement réel.
+- Produire une documentation claire à destination des utilisateurs et de l’administration.
 
 ---
 
 ## 3. Périmètre du projet
 
 ### Inclus :
-- Virtualisation complète (Proxmox VE)
-- Réseaux Internet, LAN, DMZ, Extérieur simulés
-- Routeur virtuel avec pfSense + WireGuard
-- NAS TrueNAS SCALE
-- Serveurs web/mail en DMZ
-- 2 postes clients (interne & externe)
-- Synchronisation NAS ↔️ Google Drive
-- Documentation complète
+- Environnement virtualisé complet (Proxmox VE)
+- Routeur virtuel avec pfSense + VPN WireGuard
+- Poste de travail interne (LAN) et distant (via VPN)
+- Serveur NAS TrueNAS SCALE (accès réseau local + synchronisation cloud)
+- Suite Microsoft 365 (OneDrive, SharePoint, Teams, Outlook)
+- Gestion des identités avec Entra ID
+- Documentation complète (installation, utilisation, PRA/PCA, sécurité)
 
 ### Non inclus :
-- Déploiement réel sur infrastructure physique
-- SSO/LDAP
-- Multi-sites
+- Déploiement physique (NAS ou routeur réel)
+- Gestion multi-sites ou multi-groupes
+- Configuration avancée d’Exchange Online ou Intune
 
 ---
 
 ## 4. Besoins fonctionnels
 
-| ID  | Besoin                           | Description |
-|-----|----------------------------------|-------------|
-| BF1 | Accès sécurisé au réseau interne | VPN WireGuard |
-| BF2 | Stockage local                   | NAS TrueNAS (SMB) |
-| BF3 | Accès cloud synchrone            | Sync Google Drive |
-| BF4 | Services publics DMZ             | Web / Mail |
-| BF5 | Accès utilisateur                | Poste interne + externe |
-| BF6 | Environnement réaliste           | Simulation avant production |
+| ID | Besoin | Description |
+|----|--------|-------------|
+| BF1 | Connexion VPN sécurisée | Accès distant au réseau local via WireGuard |
+| BF2 | Stockage local centralisé | Accès aux fichiers via le NAS TrueNAS (SMB) |
+| BF3 | Stockage et collaboration cloud | Accès à OneDrive, SharePoint, Teams, Outlook |
+| BF4 | Gestion des identités | Comptes utilisateurs centralisés via Entra ID |
+| BF5 | Synchronisation des données | NAS ↔ OneDrive (unidirectionnelle ou bidirectionnelle) |
+| BF6 | Poste de travail complet | Accès simple et sécurisé depuis Windows 10/11 |
 
 ---
 
 ## 5. Besoins non fonctionnels
 
-| ID    | Besoin             | Description |
-|-------|--------------------|-------------|
-| BNF1  | Coût nul           | Logiciels open source/gratuits |
-| BNF2  | Maintenance simple | Documentation claire |
-| BNF3  | Modularité         | Extension possible |
-| BNF4  | Réalisme           | Architecture type entreprise |
+| ID   | Besoin                | Description |
+|------|------------------------|-------------|
+| BNF1 | Coût réduit            | Solutions gratuites ou comprises dans la licence M365 |
+| BNF2 | Simplicité             | Interface utilisateur accessible à un public non technique |
+| BNF3 | Modularité             | Possibilité d’ajouter des services (Intune, MFA, sauvegarde cloud) |
+| BNF4 | Réalisme               | Environnement proche d’une PME réelle |
 
 ---
 
 ## 6. Livrables attendus
 
-- Infrastructure virtualisée fonctionnelle
-- Documentation technique
 - Cahier des charges
-- Analyse des risques (avec PRA/PCA)
-- Comparatif technique
-- Rapports de surveillance + scripts
-- Support de soutenance
+- Justification des choix techniques
+- Analyse des risques avec PRA / PCA
+- Plan de conformité et de sécurité
+- Documentation d’installation (VPN, Microsoft 365, accès NAS…)
+- Documentation d’utilisation claire pour les employés
+- Scripts d’automatisation (VPN, montage réseau, etc.)
+- Support de présentation et plan de démonstration
 
 ---
 
 ## 7. Planning prévisionnel
 
-| Jour | Étape                                 |
-|---------|----------------------------------------|
-| 1       | Mise en place de Proxmox + topologie  |
-| 2       | Installation pfSense + WireGuard      |
-| 3       | Déploiement NAS + Google Sync         |
-| 4       | Postes internes et externes           |
-| 5       | Tests + documentation                 |
-| 6       | Finalisation livrables + soutenance   |
+| Semaine | Étape |
+|---------|-------|
+| 1 | Création des VM Proxmox et configuration réseau |
+| 2 | Installation de pfSense + VPN WireGuard |
+| 3 | Déploiement du NAS TrueNAS + partages |
+| 4 | Intégration Microsoft 365 + Entra ID |
+| 5 | Test des postes internes et distants |
+| 6 | Documentation, tests utilisateurs, soutenance |
 
 ---

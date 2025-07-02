@@ -1,6 +1,7 @@
-# Justification des choix techniques (comparatifs)
-
-Ce document explique, compare et justifie les technologies choisies dans le cadre du projet TechFlex – télétravail sécurisé hybride.
+# Justification des choix techniques (comparatifs)  
+**Projet : TechFlex – Télétravail Sécurisé Hybride**  
+**Auteur : Kenny Wachter**  
+**Date : Juillet 2025**
 
 ---
 
@@ -10,96 +11,93 @@ Ce document explique, compare et justifie les technologies choisies dans le cadr
 |---------------|------------|--------------------|----------------|
 | Licence       | Gratuit    | Payant             | **Gratuit (open source)** |
 | Performances  | Moyennes   | Très bonnes        | **Très bonnes** |
-| Fonctionnalités pro | Faibles | Élevées           | **Élevées (clustering, snapshots, backup, accès web)** |
-| Administration | Locale uniquement | Locale + Web | **Interface Web complète** |
-| Support        | Communauté | Bon (payant)       | **Large communauté active** |
+| Fonctionnalités pro | Faibles | Élevées           | **Élevées (clustering, snapshots, backups)** |
+| Interface admin | Locale    | Locale + UI        | **Web UI complète** |
+| Support        | Communauté | Payant             | **Très actif (forums, docs)** |
 
-**Justification** : Proxmox est open source, stable, complet, et adapté aux environnements de test semi-pro. Il permet de créer plusieurs interfaces réseau pour simuler DMZ, LAN, Internet.
-
----
-
-## 2. Choix du routeur/firewall : pfSense
-
-| Critère         | **pfSense** | OPNsense | VyOS |
-|------------------|------------|----------|------|
-| Licence          | **Libre**  | Libre    | Libre |
-| Interface Web    | **Oui**    | Oui      | Non (CLI uniquement) |
-| Facilité de config | **Élevée** | Élevée  | Faible |
-| VPN intégré      | **Oui (WireGuard/OpenVPN)** | Oui | Oui |
-| Communauté       | **Très active** | Active | Plus technique |
-
-**Justification** : pfSense est stable, bien documenté et adapté aux déploiements réels. Il permet de gérer le routage, les VLANs, les DMZ et le VPN WireGuard dans une seule interface.
+**Justification** : Proxmox permet une virtualisation complète, un test de topologie réaliste et une gestion efficace via interface web. Il est open source, stable et utilisé en production dans de nombreuses PME.
 
 ---
 
-## 3. Choix du VPN : WireGuard
+## 2. Choix du VPN : WireGuard
 
 | Critère         | **WireGuard** | OpenVPN | IPSec |
 |------------------|---------------|---------|--------|
-| Sécurité         | **Excellente** | Bonne   | Moyenne à bonne |
+| Sécurité         | **Excellente (Curve25519)** | Bonne | Moyenne |
 | Performance      | **Très élevée** | Moyenne | Moyenne |
-| Configuration    | **Très simple** | Moyenne | Complexe |
-| Compatibilité    | Très bonne     | Très bonne | Moyenne |
-| Ressources       | **Faibles**    | Plus lourdes | Variables |
-| **Licence / Coût** | **Gratuit (open source)** | Gratuit | Dépend des implémentations |
+| Configuration    | **Simple (1 fichier .conf)** | Moyenne (certificats) | Complexe |
+| Compatibilité    | Tous OS       | Tous OS | Variable |
+| Licence / Coût   | **Gratuit, open source** | Gratuit | Variable |
 
-**Justification** : WireGuard est moderne, rapide, gratuit, open source, et très simple à déployer sur pfSense, Linux et Windows.
-
----
-
-## 4. Choix du NAS : TrueNAS SCALE
-
-| Critère           | TrueNAS CORE | **TrueNAS SCALE** | OpenMediaVault |
-|--------------------|--------------|-------------------|----------------|
-| Base OS            | FreeBSD      | **Debian Linux**  | Debian Linux   |
-| Docker/Kubernetes  | Non          | **Oui**           | Oui (Docker uniquement) |
-| Interface          | Très bonne   | **Très bonne**    | Moyenne |
-| Plugins/Apps       | Nombreux     | **Modernes**      | Moins variés |
-| Sync cloud         | Possible     | **Intégré via Apps** | Possible via plugin |
-| **Licence / Coût** | **Gratuit (open source)** | **Gratuit (open source)** | Gratuit |
-
-**Justification** : TrueNAS SCALE permet de créer des partages SMB classiques tout en utilisant des conteneurs pour synchroniser avec Google Drive. Il est open source, fiable, et orienté production.
+**Justification** : WireGuard est léger, rapide, ultra-sécurisé, très facile à configurer. Il s’intègre parfaitement avec pfSense et les postes Windows/macOS.
 
 ---
 
-## 5. Choix de l’outil cloud : Google Workspace
+## 3. Choix du NAS : TrueNAS SCALE
 
-| Critère             | **Google Workspace** | Nextcloud | Microsoft 365 |
-|----------------------|----------------------|-----------|----------------|
-| Déploiement          | **Aucun (SaaS)**     | Auto-hébergement | SaaS |
-| Outils intégrés      | **Drive, Docs, Gmail, Meet, Agenda…** | Fichiers uniquement | Office, Teams, Outlook |
-| Intégration VPN/NAS  | **Oui, via rclone/Docker** | Oui (WebDAV) | OneDrive fermé |
-| Accessibilité        | Navigateur | Navigateur ou client | Navigateur ou client |
-| **Tarifs pro (€/utilisateur/mois)** | **Starter : 5,75 €**  \|  **Standard : 11,50 €**  \|  **Plus : 17,25 €** | Gratuit | **Basic : 5,60 €**  \|  **Standard : 11,70 €**  \|  **Premium : 22,60 €** |
+| Critère             | TrueNAS CORE | **TrueNAS SCALE** | OpenMediaVault |
+|----------------------|--------------|-------------------|----------------|
+| OS de base           | FreeBSD      | **Debian Linux**  | Debian Linux   |
+| Conteneurisation     | Non          | **Oui (Docker/K8s)** | Oui (Docker) |
+| Interface web        | Très bonne   | **Très bonne**    | Moyenne |
+| Gestion utilisateurs | Oui          | **Oui**           | Oui |
+| Cloud Sync possible  | Limité       | **Oui (rclone, Nextcloud, OneDrive via App)** | Moyenne |
+| Licence / Coût       | **Gratuit, open source** | **Gratuit** | Gratuit |
 
-**Justification** : Google Workspace offre une suite cloud complète (Drive, Docs, Gmail…) accessible via navigateur, sans installation locale. Sa haute disponibilité, son système de sécurité intégré et sa compatibilité avec les outils de synchronisation NAS (comme rclone ou Docker sur TrueNAS) en font une solution idéale pour une architecture hybride.
-Elle est plus simple à déployer et à maintenir que Nextcloud (auto-hébergement) et plus flexible que Microsoft 365 sur la partie stockage.
+**Justification** : TrueNAS SCALE est stable, moderne, compatible Linux, intègre nativement des apps, et permet l’utilisation de scripts ou conteneurs pour la synchronisation OneDrive.
 
 ---
 
-## 6. Choix OS clients : Windows 10/11
+## 4. Choix de la suite collaborative : Microsoft 365
 
-| Critère            | **Windows** | Ubuntu Linux | macOS |
-|--------------------|-------------|--------------|-------|
-| Utilisation pro    | **Standard en entreprise** | Moyen | Faible |
-| Accès SMB natif    | **Oui**     | Oui (via CIFS) | Oui |
-| Client VPN         | **WireGuard officiel** | Oui | Oui |
-| Intégration Google | **Totale** | Totale | Totale |
+| Critère             | **Microsoft 365** | Google Workspace | Nextcloud |
+|----------------------|------------------|------------------|------------|
+| Collaboration        | **Teams, SharePoint, OneDrive, Outlook** | Gmail, Docs, Meet | Partage de fichiers |
+| Intégration Windows  | **Totale (native)** | Bonne | Moyenne |
+| Sécurité & conformité | **ISO, RGPD, MFA** | Bonne | À configurer |
+| Authentification centralisée | **Oui (via Entra ID)** | Oui | Possible (LDAP) |
+| Tarifs pro (€/utilisateur/mois) | **Basic : 5,60 €**, Standard : 11,70 €, Premium : 22,60 € | Starter : 5,75 € | Gratuit (mais à héberger) |
 
-**Justification** : Windows est la norme dans la majorité des PME. L’accès SMB est natif, WireGuard fonctionne parfaitement, et les outils Google sont accessibles via navigateur.
+**Justification** : Microsoft 365 est une suite professionnelle complète, déjà utilisée en entreprise. Elle est parfaitement intégrée à Windows 10/11, centralise les données via OneDrive/SharePoint, et offre un écosystème unifié pour messagerie, réunions et collaboration.
+
+---
+
+## 5. Choix de la gestion des identités : Entra ID (anciennement Azure AD)
+
+| Critère           | **Entra ID** | LDAP local | FreeIPA |
+|--------------------|--------------|-------------|---------|
+| Cloud natif        | **Oui**      | Non         | Non     |
+| SSO / MFA          | **Oui (natif)** | Non         | Possible |
+| Gestion M365       | **Intégrée** | Non         | Non     |
+| Facilité d’usage   | **Interface web / auto provisionnement** | Complexe | Technique |
+| Tarifs             | Inclus avec licences M365 | Gratuit | Gratuit |
+
+**Justification** : Entra ID permet de centraliser les comptes utilisateurs M365 avec options de sécurité renforcées (MFA, audit, rôles). C’est la solution naturelle dans une architecture Microsoft.
+
+---
+
+## 6. Choix OS client : Windows 10/11
+
+| Critère         | Windows 10/11 | Ubuntu | macOS |
+|------------------|----------------|--------|--------|
+| Compatibilité M365 | **Totale (native)** | Partielle | Très bonne |
+| Client VPN WireGuard | **Oui (officiel)** | Oui | Oui |
+| Accès NAS SMB     | **Natif**     | Oui    | Oui |
+| Expérience utilisateur | **Standard PME** | Variable | Moins courant en PME |
+
+**Justification** : Windows est utilisé dans la majorité des PME. Il offre un accès direct au NAS, un client VPN officiel, et une compatibilité native avec Microsoft 365.
 
 ---
 
 ## 📌 Résumé des choix retenus
 
-| Composant         | Choix retenu          |
-|-------------------|-----------------------|
-| Hyperviseur       | Proxmox VE            |
-| Routeur           | pfSense               |
-| VPN               | WireGuard             |
-| NAS               | TrueNAS SCALE         |
-| Cloud             | Google Workspace      |
-| Clients utilisateurs | Windows 10/11 Pro    |
+| Composant               | Choix retenu         |
+|-------------------------|----------------------|
+| Hyperviseur             | Proxmox VE           |
+| VPN                     | WireGuard            |
+| NAS                     | TrueNAS SCALE        |
+| Cloud collaboratif      | Microsoft 365        |
+| Gestion des identités   | Entra ID (Azure AD)  |
+| Postes clients          | Windows 10/11 Pro    |
 
 ---
-

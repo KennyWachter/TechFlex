@@ -1,111 +1,118 @@
 # Documentation d'installation – TechFlex  
-**Public cible : Employés et employeurs (non-informaticiens)**  
+**Public : Employés / Employeurs (non informaticiens)**  
 **Dernière mise à jour : Juillet 2025**
 
 ---
 
-## Objectif du document
+## 🎯 Objectif
 
-Ce guide présente les éléments que les utilisateurs doivent installer eux-mêmes sur leur poste de travail (fixe ou portable), que ce soit en interne ou à distance.
+Ce guide explique comment installer et configurer les outils essentiels pour accéder aux fichiers et services de l'entreprise TechFlex :
 
-Les installations système, réseau et serveurs (comme TrueNAS, pfSense, etc.) sont déjà prises en charge par le service informatique et ne sont **pas à refaire par les utilisateurs**.
+- VPN sécurisé (WireGuard)
+- Microsoft 365 (OneDrive, Outlook, Teams…)
+- Accès au dossier partagé de l’entreprise (NAS)
 
 ---
 
 ## 1. Installation du client VPN WireGuard
 
-### 📌 À quoi ça sert ?  
-Permet de se connecter à distance au réseau de l'entreprise de façon sécurisée.
+### 🧩 Pourquoi ?
+Le VPN vous permet d'accéder de manière sécurisée aux fichiers et ressources de l'entreprise à distance (depuis chez vous ou en déplacement).
 
 ### 📥 Télécharger WireGuard
+- Windows : [https://www.wireguard.com/install](https://www.wireguard.com/install)
+- macOS : Disponible sur App Store
+- Android : Google Play – "WireGuard"
+- iOS : App Store – "WireGuard"
 
-- Site officiel : [https://www.wireguard.com/install](https://www.wireguard.com/install)
-- Choisir la version correspondant à votre système :
-  - Windows 10 ou 11 → *WireGuard for Windows*
-  - macOS → *WireGuard for macOS*
-  - Android → Disponible sur Google Play
-  - iOS → Disponible sur App Store
+### 🧭 Étapes (Windows) :
 
-### 🧭 Étapes (Windows)
-
-1. Télécharger le fichier d’installation.
-2. Lancer l’installation en double-cliquant sur le fichier.
-3. Une fois installé, ouvrir l'application WireGuard.
+1. Télécharger l’installateur depuis le lien ci-dessus.
+2. Lancer l'installation.
+3. Ouvrir WireGuard.
 4. Cliquer sur **"Importer un tunnel depuis un fichier"**.
-5. Sélectionner le fichier `.conf` qui vous a été fourni par l'administrateur (ex : `techflex-vpn.conf`).
+5. Sélectionner le fichier `techflex-vpn.conf` fourni par l’entreprise.
 6. Cliquer sur **"Activer"**.
 
-✅ Le VPN est maintenant prêt. Il s’activera à la demande ou automatiquement selon la configuration.
+✅ Une fois activé, vous êtes connecté au réseau sécurisé de TechFlex.
 
 ---
 
-## 2. Accès à l’emplacement réseau (NAS)
+## 2. Connexion au dossier partagé (lecteur réseau NAS)
 
-### 📌 À quoi ça sert ?  
-Accéder à un dossier partagé de l’entreprise contenant vos documents de travail.
+### 🧩 Pourquoi ?
+Cela vous permet d'accéder aux fichiers partagés de l’entreprise, stockés localement sur le NAS.
 
-### 🖥️ Systèmes compatibles : Windows uniquement
+### 🧭 Étapes (Windows uniquement) :
 
-### 🧭 Étapes (Windows)
-
-1. Ouvrir l’explorateur de fichiers.
-2. Cliquer sur **"Ce PC"**, puis sur **"Connecter un lecteur réseau"**.
-3. Choisir une lettre de lecteur (par exemple `Z:`).
-4. Dans le champ **Dossier**, saisir l'adresse réseau qui vous a été fournie (ex : `\\nas.techflex.lan\partage`).
-   - Si vous êtes à distance : vous devez d’abord activer le VPN.
+1. Ouvrir **"Ce PC"** dans l'explorateur de fichiers.
+2. Cliquer sur **"Connecter un lecteur réseau"**.
+3. Choisir une lettre (ex : `Z:`).
+4. Dans le champ **Dossier**, entrer l’adresse fournie, ex. :  
+   `\\nas.techflex.lan\partage`  
+   ou (si accès par IP) :  
+   `\\192.168.1.100\partage`
 5. Cochez **"Se reconnecter à l’ouverture de session"**.
-6. Si demandé, entrez le **nom d’utilisateur et mot de passe** fournis.
+6. Si demandé, entrer vos identifiants d’accès (fournis par l’entreprise).
 
-✅ Le lecteur réseau apparaîtra ensuite automatiquement dans "Ce PC".
+✅ Le dossier partagé apparaîtra comme un lecteur dans "Ce PC".
 
----
-
-## 3. Installation de Google Drive (optionnel mais recommandé)
-
-### 📌 À quoi ça sert ?  
-Accéder à vos fichiers Drive hors connexion et assurer une synchronisation automatique locale ↔ cloud.
-
-### 📥 Télécharger Google Drive pour ordinateur
-
-- Lien officiel : [https://www.google.com/intl/fr/drive/download](https://www.google.com/intl/fr/drive/download)
-
-### 🧭 Étapes (Windows)
-
-1. Télécharger le fichier d’installation.
-2. Lancer l’installation.
-3. Se connecter avec votre compte Google (utilisé pour le travail).
-4. Choisir les dossiers que vous souhaitez synchroniser.
-5. Activer l’option **"Accès hors connexion"** si vous souhaitez pouvoir travailler sans Internet.
-
-✅ Un dossier **"Google Drive"** sera créé sur votre poste.
+> ℹ️ Attention : pour que cela fonctionne à distance, le **VPN doit être activé**.
 
 ---
 
-## 4. Outils facultatifs (navigateur, suite bureautique)
+## 3. Installation de Microsoft 365 (OneDrive, Teams, Outlook…)
 
-> Ces outils ne sont pas obligatoires mais recommandés pour un usage confortable.
+### 🧩 Pourquoi ?
+Microsoft 365 vous permet de travailler dans le cloud : mails, réunions, documents partagés (OneDrive, SharePoint), et messagerie instantanée (Teams).
 
-| Outil | Utilité | Téléchargement |
-|-------|---------|----------------|
-| **Google Chrome** | Meilleure compatibilité avec Google Workspace | [https://www.google.com/chrome/](https://www.google.com/chrome/) |
-| **LibreOffice** | Édition hors ligne de documents si vous n'avez pas Microsoft Office | [https://fr.libreoffice.org/](https://fr.libreoffice.org/) |
+### 📥 Téléchargement :
 
----
+- Page officielle : [https://www.microsoft365.com/](https://www.microsoft365.com/)
 
-## 5. Assistance et support
+### 🧭 Étapes :
 
-En cas de difficulté, contactez le service informatique de TechFlex ou suivez le guide d'utilisation prévu pour chaque outil (à venir dans la documentation d'utilisation).
+1. Connectez-vous avec vos identifiants professionnels (adresse mail fournie par TechFlex).
+2. Cliquez sur **"Installer les applications Office"**.
+3. Lancez le fichier téléchargé et suivez les instructions.
+4. Une fois installé, ouvrez les applications :
+   - **OneDrive** : pour accéder à vos fichiers dans le cloud
+   - **Outlook** : pour les emails professionnels
+   - **Teams** : pour la communication interne
+   - **Word / Excel / PowerPoint** : pour la bureautique
 
----
-
-## ✅ Résumé
-
-| Élément à installer | Obligatoire | Public concerné |
-|---------------------|-------------|------------------|
-| WireGuard VPN       | ✅ Oui       | Télétravailleurs |
-| Lecteur réseau SMB  | ✅ Oui       | Tous             |
-| Google Drive        | ⬜ Recommandé | Tous             |
-| Navigateur Chrome   | ⬜ Optionnel  | Tous             |
+✅ Une icône OneDrive apparaîtra dans la barre des tâches. Elle doit être **en bleu (connectée)**.
 
 ---
 
+## 4. Recommandations d’usage
+
+| Action                  | Recommandé ? | Fréquence |
+|-------------------------|--------------|-----------|
+| Activer le VPN avant d’ouvrir le lecteur réseau | ✅ Oui | À chaque connexion distante |
+| Travailler depuis OneDrive (cloud) | ✅ Oui | En continu |
+| Sauvegarder localement sur le NAS | ✅ Oui (automatique via OneDrive ou manuel) | Si accès direct |
+| Utiliser Teams pour les échanges pro | ✅ Oui | Quotidien |
+| Travailler dans un lieu calme et privé | ✅ Oui | Toujours |
+| Se connecter depuis un PC personnel | ⚠️ Toléré si protégé | Exceptionnel |
+
+---
+
+## 5. Assistance technique
+
+En cas de blocage, contactez le service informatique de TechFlex :  
+📧 **support@techflex.local**  
+📞 **+33 1 23 45 67 89**
+
+---
+
+## ✅ Résumé des installations
+
+| Élément à installer     | Obligatoire | Utilisateurs concernés |
+|--------------------------|-------------|-------------------------|
+| WireGuard VPN            | ✅ Oui      | Télétravailleurs        |
+| Lecteur réseau (NAS)     | ✅ Oui      | Tous                    |
+| Microsoft 365 (OneDrive, Outlook, Teams…) | ✅ Oui | Tous                    |
+| Navigateur recommandé    | ⬜ Optionnel (Chrome, Edge) | Tous |
+
+---
